@@ -10,6 +10,10 @@ const Game = () => {
   // Set up state for the falling word and its position
   const [fallingWord, setFallingWord] = useState({ word: '', x: 0, y: -20 });
 
+  // Set up state for tracking the time and typed word count
+  const [startTime, setStartTime] = useState(Date.now());
+  const [wordCount, setWordCount] = useState(0);
+
   // Set up a function that fetches words from the server
   const fetchWords = useCallback(async () => {
     try {
@@ -72,11 +76,27 @@ const Game = () => {
     }
   }, [fallingWord.word, word, generateWord]);
 
+  // Calculate the typing speed in words per minute
+  const wordPerMinute = () => {
+    const elapsedTime = (Date.now() - startTime) / 1000; // Elapsed time in seconds
+    const minutes = elapsedTime / 60; // Elapsed time in minutes
+    const speed = (wordCount / minutes) || 0; // Typing speed in words per minute (handles division by zero)
+    return Math.round(speed);
+  };
+
+  // Update the word count when a word is typed correctly
+  useEffect(() => {
+    if (word === fallingWord.word) {
+      setWordCount(wordCount + 1);
+    }
+  }, [fallingWord.word, word, wordCount]);
+
   return (
     <div>
       <div><Logo/></div>
       <div>Score: {score}</div>
       <div>Speed: {speed.toFixed(1)}</div>
+      <div>Typing Speed: {wordPerMinute()} WPM</div>
       <div style={{ position: 'relative', height: '400px', border: '1px solid black' }}>
         <div style={{ position: 'absolute', left: fallingWord.x, top: fallingWord.y }}>
           {fallingWord.word}
