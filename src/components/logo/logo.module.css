@@ -1,0 +1,7 @@
+.Logo{
+  display: grid;
+  position: absolute;
+  margin: 2.7em 45em;
+  height: 25em;
+  z-index: -10;
+}

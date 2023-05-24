@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import Logo from './components/logo/logo';
 
 const Game = () => {
   // Set up state for the current word, score, and game speed
@@ -73,6 +74,7 @@ const Game = () => {
 
   return (
     <div>
+      <div><Logo/></div>
       <div>Score: {score}</div>
       <div>Speed: {speed.toFixed(1)}</div>
       <div style={{ position: 'relative', height: '400px', border: '1px solid black' }}>
