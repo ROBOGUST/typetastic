@@ -1,3 +1,6 @@
+# typetastic
+Cool typing inspired game as a exam project for my fullstack java developer education
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
