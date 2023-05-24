@@ -10,9 +10,11 @@ const Game = () => {
   // Set up state for the falling word and its position
   const [fallingWord, setFallingWord] = useState({ word: '', x: 0, y: -20 });
 
-  // Set up state for tracking the time and typed word count
-  const [startTime, setStartTime] = useState(Date.now());
+  // Set up state for tracking the typed word count
   const [wordCount, setWordCount] = useState(0);
+
+  // Set up state for the start time
+  const [startTime, setStartTime] = useState(0);
 
   // Set up a function that fetches words from the server
   const fetchWords = useCallback(async () => {
@@ -84,12 +86,15 @@ const Game = () => {
     return Math.round(speed);
   };
 
-  // Update the word count when a word is typed correctly
+  // Update the word count and start time when a word is typed
   useEffect(() => {
-    if (word === fallingWord.word) {
+    if (word !== '') {
       setWordCount(wordCount + 1);
+      if (startTime === 0) {
+        setStartTime(Date.now());
+      }
     }
-  }, [fallingWord.word, word, wordCount]);
+  }, [word, wordCount, startTime]);
 
   return (
     <div>
