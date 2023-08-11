@@ -19,7 +19,7 @@ const Game = () => {
   // Set up a function that fetches words from the server
   const fetchWords = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8080/words');
+      const response = await fetch('https://random-word-api.vercel.app/api?words=6');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
